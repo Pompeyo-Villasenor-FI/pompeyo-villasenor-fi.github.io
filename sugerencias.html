@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buzón de Sugerencias | Niño – Villaseñor (Consejo Técnico FI 2026–2030)</title>
   <meta name="description" content="Buzón de sugerencias y participación docente para los candidatos Dr. Mauro P. Niño Lázaro y M.I. Carlos Villaseñor Mejía al Consejo Técnico de la Facultad de Ingeniería UNAM.">
+  <script>document.documentElement.classList.add('js-ready');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
@@ -85,10 +86,10 @@
 
     <div class="container">
       <section class="form-card form-card--iframe reveal" aria-labelledby="titulo-formulario">
-        <h2 id="titulo-formulario" class="section-heading__title" style="margin-block-end: 0.4rem;">
+        <h2 id="titulo-formulario" class="section-heading__title form-card__title">
           Buzón de Sugerencias y Propuestas
         </h2>
-        <p style="color: var(--text-muted); margin-block-start: 0; margin-block-end: 1.5rem;">
+        <p class="form-card__lead">
           Puedes responder directamente en el siguiente formulario. Todas tus respuestas se registran de forma inmediata para el plan de trabajo de la fórmula <strong>Niño – Villaseñor</strong> ante el Consejo Técnico (2026–2030).
         </p>
 
@@ -115,6 +116,62 @@
           </p>
         </div>
       </section>
+
+      <!-- LLAMADO AL VOTO ANIMADO -->
+      <section class="vote-section" aria-label="Recordatorio de jornada electoral">
+        <div class="vote-callout reveal" data-vote-callout>
+          <div class="vote-callout__aura" aria-hidden="true"></div>
+          <div class="vote-callout__surface">
+            <button
+              type="button"
+              class="vote-callout__pause-btn"
+              data-vote-pause
+              aria-pressed="false"
+              aria-label="Pausar animación del llamado al voto"
+              title="Pausar animación"
+            >
+              <span class="vote-callout__pause-icon" aria-hidden="true">❚❚</span>
+            </button>
+
+            <div class="vote-callout__emblem" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="58" height="58" fill="none">
+                <polygon points="32,4 56.2,18 56.2,46 32,60 7.8,46 7.8,18" fill="#fde8e9" />
+                <path d="M32 4 L7.8 18 L7.8 46 L32 60" stroke="#e31920" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M32 4 L56.2 18 L56.2 46 L32 60" stroke="#c5a059" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round" />
+                <path class="vote-callout__check" d="M21 32.5 L28.5 40 L43.5 24.5" stroke="#e31920" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+
+            <p class="vote-callout__vota">
+              <span class="visually-hidden">VOTA</span>
+              <span class="vote-letters" aria-hidden="true">
+                <span class="vote-letter">V</span><span class="vote-letter">O</span><span class="vote-letter">T</span><span class="vote-letter">A</span>
+              </span>
+            </p>
+
+            <div class="vote-callout__divider" aria-hidden="true">
+              <span class="vote-callout__divider-line"></span>
+              <span class="vote-callout__divider-gem"></span>
+              <span class="vote-callout__divider-line"></span>
+            </div>
+
+            <p class="vote-callout__names">
+              NIÑO <span class="vote-callout__dash">–</span> VILLASEÑOR
+            </p>
+
+            <div class="vote-callout__date-wrap">
+              <p class="vote-callout__date">
+                <span class="vote-callout__beacon" aria-hidden="true"></span>
+                <span>Este 12 de noviembre</span>
+              </p>
+            </div>
+
+            <p class="vote-callout__caption">
+              Representantes de Profesores al Consejo Técnico · Facultad de Ingeniería UNAM (2026–2030)
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   </main>
 
@@ -131,4 +188,3 @@
   <script src="js/main.js" defer></script>
 </body>
 </html>
-

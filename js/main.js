@@ -1,6 +1,6 @@
 /**
  * Lógica principal del sitio de campaña Niño – Villaseñor (Consejo Técnico FI 2026–2030)
- * Implementa sincronización accesible de validación (`:user-invalid` + ARIA) y manejo de envío.
+ * Implementa validación accesible, revelados en scroll y controles de pausa de movimiento.
  */
 
 (() => {
@@ -81,7 +81,6 @@
       }
     };
 
-    // Validar al salir del campo (blur)
     form.addEventListener(
       'blur',
       (e) => {
@@ -92,14 +91,12 @@
       true
     );
 
-    // Limpiar el estado de error inmediatamente al corregir (input)
     form.addEventListener('input', (e) => {
       if (e.target.matches('input, textarea') && e.target.checkValidity()) {
         e.target.removeAttribute('aria-invalid');
       }
     });
 
-    // Alternar visibilidad de campos de contacto cuando se elige modalidad anónima
     const modContacto = document.getElementById('mod-contacto');
     const modAnonima = document.getElementById('mod-anonima');
     const contactoGroup = document.getElementById('datos-contacto-group');
@@ -109,7 +106,7 @@
     const updateModalidadUI = () => {
       if (!contactoGroup) return;
       const isAnonima = modAnonima && modAnonima.checked;
-      contactoGroup.style.display = isAnonima ? 'none' : 'block';
+      contactoGroup.hidden = Boolean(isAnonima);
       if (isAnonima) {
         if (nombreInput) nombreInput.value = '';
         if (correoInput) {
@@ -124,7 +121,6 @@
       modAnonima.addEventListener('change', updateModalidadUI);
     }
 
-    // Manejo de envío del formulario
     const submitBtn = document.getElementById('submit-btn');
     const statusBox = document.getElementById('form-status');
 
@@ -137,7 +133,6 @@
 
       e.preventDefault();
 
-      // Deshabilitar botón tras clic válido para evitar envíos duplicados
       if (submitBtn) {
         submitBtn.disabled = true;
       }
@@ -146,7 +141,6 @@
       const endpoint = form.getAttribute('action') || '';
 
       try {
-        // Si ya se configuró un ID real de Formspree, enviamos por POST
         if (endpoint && !endpoint.includes('PENDIENTE_ID')) {
           const response = await fetch(endpoint, {
             method: 'POST',
@@ -158,7 +152,6 @@
             throw new Error('No se pudo completar el envío remoto.');
           }
         } else {
-          // Respaldo local mientras se configura el correo definitivo
           const savedList = JSON.parse(localStorage.getItem('sugerencias_campana') || '[]');
           savedList.push({
             fecha: new Date().toISOString(),
@@ -180,11 +173,9 @@
 
         form.reset();
         updateModalidadUI();
-      } catch (err) {
+      } catch {
         if (statusBox) {
-          statusBox.className = 'form-status is-visible';
-          statusBox.style.backgroundColor = '#fce8e6';
-          statusBox.style.color = '#a50e0e';
+          statusBox.className = 'form-status form-status--error is-visible';
           statusBox.textContent =
             'Ocurrió un inconveniente al enviar el formulario. Por favor intenta nuevamente en unos momentos.';
         }
@@ -197,17 +188,14 @@
   };
 
   // 3. Scroll Reveal System (IntersectionObserver)
-  // Cumple con Modern Web Guidance: `motion` y `scroll-entry-exit-effects`
   const setupScrollReveals = () => {
-    // Si el usuario prefiere movimiento reducido, salir sin animaciones
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
     const revealElements = document.querySelectorAll('.reveal');
     if (!revealElements.length) return;
 
-    if (!('IntersectionObserver' in window)) {
+    if (
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+      !('IntersectionObserver' in window)
+    ) {
       revealElements.forEach((el) => el.classList.add('is-revealed'));
       return;
     }
@@ -222,17 +210,41 @@
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: '0px 0px -30px 0px',
+        threshold: 0.12,
+        rootMargin: '0px 0px -24px 0px',
       }
     );
 
     revealElements.forEach((el) => observer.observe(el));
   };
 
+  // 4. Control accesible de pausa/reanudación en el bloque animado "VOTA" (`motion`)
+  const setupVoteCalloutControls = () => {
+    const callouts = document.querySelectorAll('[data-vote-callout]');
+    callouts.forEach((callout) => {
+      const pauseBtn = callout.querySelector('[data-vote-pause]');
+      if (!pauseBtn) return;
+
+      const iconSpan = pauseBtn.querySelector('.vote-callout__pause-icon');
+
+      pauseBtn.addEventListener('click', () => {
+        const isPaused = callout.classList.toggle('is-paused');
+        pauseBtn.setAttribute('aria-pressed', String(isPaused));
+        const label = isPaused
+          ? 'Reanudar animación del llamado al voto'
+          : 'Pausar animación del llamado al voto';
+        pauseBtn.setAttribute('aria-label', label);
+        pauseBtn.setAttribute('title', isPaused ? 'Reanudar animación' : 'Pausar animación');
+        if (iconSpan) {
+          iconSpan.textContent = isPaused ? '▶' : '❚❚';
+        }
+      });
+    });
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     setupFormValidationAndSubmission();
     setupScrollReveals();
+    setupVoteCalloutControls();
   });
 })();
-
