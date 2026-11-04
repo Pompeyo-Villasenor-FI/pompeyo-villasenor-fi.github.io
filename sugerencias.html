@@ -84,159 +84,36 @@
     </section>
 
     <div class="container">
-      <section class="form-card" aria-labelledby="titulo-formulario">
+      <section class="form-card form-card--iframe" aria-labelledby="titulo-formulario">
         <h2 id="titulo-formulario" class="section-heading__title" style="margin-block-end: 0.4rem;">
-          Envíanos tu sugerencia
+          Buzón de Sugerencias y Propuestas
         </h2>
         <p style="color: var(--text-muted); margin-block-start: 0; margin-block-end: 1.5rem;">
-          Puedes enviar tu mensaje de forma <strong>anónima</strong> o incluir tus datos si deseas que nos pongamos en contacto contigo para darle seguimiento. Los campos marcados con <span class="required-star" aria-hidden="true">*</span> son obligatorios.
+          Puedes responder directamente en el siguiente formulario. Todas tus respuestas se registran de forma inmediata para el plan de trabajo de la fórmula <strong>Niño – Villaseñor</strong> ante el Consejo Técnico (2026–2030).
         </p>
 
-        <!-- Formulario conectado a Formspree -->
-        <form
-          id="suggestion-form"
-          action="https://formspree.io/f/mbggpbog"
-          method="POST"
-        >
-          <!-- Campo honeypot anti-spam -->
-          <div class="visually-hidden" aria-hidden="true">
-            <label for="website-honeypot">No llenar este campo:</label>
-            <input type="text" id="website-honeypot" name="_gotcha" tabindex="-1" autocomplete="off">
-          </div>
+        <!-- Google Form incrustado directamente -->
+        <div class="google-form-wrapper">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfOb0ckFLNXa99xhlUIjmV8rEJgn9lEeI4_XeTzlybYe9iW4A/viewform?embedded=true"
+            width="100%"
+            height="850"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            class="google-form-iframe"
+            title="Formulario de Sugerencias para el Consejo Técnico FI UNAM"
+          >Cargando formulario…</iframe>
+        </div>
 
-          <!-- 1. Modalidad de participación (2 opciones -> radio buttons) -->
-          <fieldset class="form-fieldset">
-            <legend>Modalidad de participación</legend>
-            <div class="radio-grid">
-              <label class="radio-option">
-                <input type="radio" name="modalidad" value="Con datos de contacto" checked id="mod-contacto">
-                <span>Con datos de contacto (opcional)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="modalidad" value="Anónima" id="mod-anonima">
-                <span>Participación anónima</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <!-- Contenedor de datos opcionales de contacto -->
-          <div id="datos-contacto-group">
-            <div class="form-group">
-              <label for="nombre-docente" class="field-label">Nombre completo (opcional)</label>
-              <span id="nombre-hint" class="hint">Puedes omitirlo si prefieres reservar tu identidad.</span>
-              <input
-                type="text"
-                id="nombre-docente"
-                name="nombre"
-                class="form-input"
-                autocomplete="name"
-                maxlength="120"
-                aria-describedby="nombre-hint"
-              >
-            </div>
-
-            <div class="form-group">
-              <label for="correo-docente" class="field-label">Correo electrónico (opcional)</label>
-              <!-- Hint arriba del input para que el autocompletado no lo cubra -->
-              <span id="correo-hint" class="hint">Formato: usuario@ingenieria.unam.edu o correo personal</span>
-              <input
-                type="email"
-                id="correo-docente"
-                name="email"
-                class="form-input"
-                autocomplete="email"
-                autocorrect="off"
-                autocapitalize="off"
-                spellcheck="false"
-                aria-describedby="correo-hint"
-                aria-errormessage="correo-error"
-              >
-              <div id="correo-error" class="error-msg">
-                <span aria-hidden="true">❌</span> Por favor ingresa una dirección de correo electrónico válida.
-              </div>
-            </div>
-          </div>
-
-          <!-- 2. Figura académica (4 opciones -> radio buttons visibles) -->
-          <fieldset class="form-fieldset">
-            <legend>Categoría académica</legend>
-            <div class="radio-grid">
-              <label class="radio-option">
-                <input type="radio" name="categoria" value="Profesor(a) de Asignatura" checked>
-                <span>Profesor(a) de Asignatura</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="categoria" value="Profesor(a) de Carrera">
-                <span>Profesor(a) de Carrera</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="categoria" value="Técnico(a) Académico(a)">
-                <span>Técnico(a) Académico(a)</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="categoria" value="Otro / Comunidad DICyG">
-                <span>Otro / Comunidad DICyG</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <!-- 3. Eje temático (5 opciones -> radio buttons visibles) -->
-          <fieldset class="form-fieldset">
-            <legend>Tema principal de tu propuesta o inquietud</legend>
-            <div class="radio-grid">
-              <label class="radio-option">
-                <input type="radio" name="eje_tematico" value="Transparencia y certeza laboral" checked>
-                <span>Transparencia y certeza laboral</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="eje_tematico" value="Innovación, aulas y software">
-                <span>Innovación, aulas y software</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="eje_tematico" value="Plan de estudios y acreditación">
-                <span>Plan de estudios y acreditación</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="eje_tematico" value="Investigación y laboratorios">
-                <span>Investigación y laboratorios</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="eje_tematico" value="Otro tema general">
-                <span>Otro tema general</span>
-              </label>
-            </div>
-          </fieldset>
-
-          <!-- 4. Mensaje / Sugerencia (Obligatorio) -->
-          <div class="form-group">
-            <label for="mensaje-sugerencia" class="field-label">
-              Tu sugerencia, necesidad detectada o propuesta <span class="required-star" aria-hidden="true">*</span>
-            </label>
-            <span id="mensaje-hint" class="hint">
-              Describe la problemática observada o la acción que propones impulsar en el Consejo Técnico (mínimo 10 caracteres).
-            </span>
-            <textarea
-              id="mensaje-sugerencia"
-              name="mensaje"
-              class="form-textarea"
-              required
-              minlength="10"
-              maxlength="3000"
-              aria-describedby="mensaje-hint"
-              aria-errormessage="mensaje-error"
-            ></textarea>
-            <div id="mensaje-error" class="error-msg">
-              <span aria-hidden="true">❌</span> Este campo es obligatorio. Por favor escribe al menos 10 caracteres.
-            </div>
-          </div>
-
-          <button type="submit" id="submit-btn" class="submit-btn">
-            <span>Enviar sugerencia a los candidatos</span>
-            <span aria-hidden="true">→</span>
-          </button>
-
-          <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
-        </form>
+        <div class="form-direct-link">
+          <p>
+            ¿Tienes algún inconveniente para visualizar el formulario aquí?
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOb0ckFLNXa99xhlUIjmV8rEJgn9lEeI4_XeTzlybYe9iW4A/viewform" target="_blank" rel="noopener noreferrer">
+              Ábrelo directamente en Google Forms <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        </div>
       </section>
     </div>
   </main>
